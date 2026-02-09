@@ -15,9 +15,28 @@ from yt_dlp import YoutubeDL
 #    print("Note: Quotes are required around the link")
 #    sys.exit()
 
-#def download_song(url: str):
+def download_song(url: str):
+    driver = webdriver.Chrome()
+    driver.get(url)
+    driver.implicitly_wait(5)
 
-def download(url: str):
+    title = driver.find_element(By.ID, "above-the-fold").find_element(By.ID, "title").find_element(By.TAG_NAME, "yt-formatted-string").get_attribute("title")
+    title = title.replace("/", "_slash_")
+    title = title.replace("\\", "_back_slash_")
+
+    ydl_opts = {
+        "format": "m4a/bestaudio/best",
+        "postprocessors": [{
+            "key": "FFmpegExtractAudio",
+            "preferredcodec": "opus",
+        }],
+        "noplaylist": True,
+        "outtmpl": title
+    }
+    with YoutubeDL(ydl_opts) as ydl:
+        error_code = ydl.download(url)
+    
+def download_album(url: str):
     driver = webdriver.Chrome()
     driver.get(url)
 

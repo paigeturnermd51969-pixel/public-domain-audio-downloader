@@ -3,7 +3,7 @@ from PySide6.QtWidgets import (QLineEdit, QPushButton, QApplication,
     QVBoxLayout, QDialog, QTextEdit, QWidget)
 from PySide6.QtGui import (QCloseEvent, QTextCursor)
 from PySide6.QtCore import (QObject, Signal)
-from downloader import download
+from downloader import (download_album, download_song)
 
 class StdOutWindow(QWidget):
     def __init__(self):
@@ -55,7 +55,12 @@ class Form(QDialog):
     # Greets the user
     def greetings(self):
         print(f"Hello {self.edit.text()}")
-        download(self.edit.text())
+        url = self.edit.text()
+        if "&list=" in url:
+            download_album(url)
+        else:
+            download_song(url)
+        #download(self.edit.text())
     
     
 
