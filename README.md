@@ -12,9 +12,16 @@ By using this project, you agree to take full responsibility for your actions an
 ## About
 This is a simple Python script that downloads the audio from each video in a YouTube playlist and then stores each file in a neatly structured format. To use, simply pass the URL of the the playlist you wish to download from as an argument.
 
+<<<<<<< HEAD
 ## Requirments
 - Python 3
 - Chrome or a Chrome derivative browser
+=======
+## Requirements
+- Python 3
+- pip
+- Chrome (or a Chrome derivative browser)
+>>>>>>> f1fb11d (Adding save all files in a separate branch)
 
 ## Usage Instuctructions for those unfamiliar with Python
 ### Linux or MacOS
@@ -40,11 +47,20 @@ deactivate
 
 ## TODO
 This script is far from perfect. Here is a list of some upcoming improvments.
+<<<<<<< HEAD
 - Clean up code
 - Test if it actually works on Windows. 
 - Handle correct song ordering in playlists > 99 songs
 - Make it so that non-technical peeps can easily use (Docker Container? GUI?)
 - Automatic updates
+=======
+- Strip colons from filenames
+- Handle correct song ordering in playlists > 99 songs
+- Test if it actually works on Windows.
+- Automatic updates
+- Clean up code
+- Make it so that non-technical peeps can easily use (Docker Container? GUI?)
+>>>>>>> f1fb11d (Adding save all files in a separate branch)
 - Handle forbidden charactars in different filesystems https://stackoverflow.com/questions/1976007/what-characters-are-forbidden-in-windows-and-linux-directory-names
 https://stackoverflow.com/questions/1976007/what-characters-are-forbidden-in-windows-and-linux-directory-names
 - Allow user to specify prefered codec as CLI arg
