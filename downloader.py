@@ -15,29 +15,38 @@ from yt_dlp import YoutubeDL
 #    print("Note: Quotes are required around the link")
 #    sys.exit()
 
-def download_song(url: str):
-    driver = webdriver.Chrome()
+def download_song(url: str, audio_only: bool=True):
+    options = webdriver.ChromeOptions()
+    options.add_argument("--headless=new")
+    driver = webdriver.Chrome(options=options)
     driver.get(url)
     driver.implicitly_wait(5)
 
     title = driver.find_element(By.ID, "above-the-fold").find_element(By.ID, "title").find_element(By.TAG_NAME, "yt-formatted-string").get_attribute("title")
     title = title.replace("/", "_slash_")
     title = title.replace("\\", "_back_slash_")
-
-    ydl_opts = {
-        "format": "m4a/bestaudio/best",
-        "postprocessors": [{
-            "key": "FFmpegExtractAudio",
-            "preferredcodec": "opus",
-        }],
-        "noplaylist": True,
-        #"remote-components": "ejs:github", # Doesn't work TT
-        "outtmpl": title
-    }
+    
+    ydl_opts = {}
+    if (audio_only):
+        ydl_opts = {
+            "format": "m4a/bestaudio/best",
+            "postprocessors": [{
+                "key": "FFmpegExtractAudio",
+                "preferredcodec": "opus",
+            }],
+            "noplaylist": True,
+            #"remote-components": "ejs:github", # Doesn't work TT
+            "outtmpl": title
+        }
+    else: 
+        ydl_opts = {
+            "noplaylist": True,
+            "outtmpl": title
+        }
     with YoutubeDL(ydl_opts) as ydl:
         error_code = ydl.download(url)
     
-def download_album(url: str):
+def download_album(url: str, audio_only: bool=True):
     options = webdriver.ChromeOptions()
     options.add_argument("--headless=new")
     driver = webdriver.Chrome(options=options)
@@ -63,16 +72,20 @@ def download_album(url: str):
     title = title.replace("\\", "_back_slash_")
     Path(title).mkdir(exist_ok=True)
 
-    ydl_opts = {
-        #"format": "bestaudio", # This might be something that's deprecated (not sure)
-        "format": "m4a/bestaudio/best",
-        "postprocessors": [{
-            "key": "FFmpegExtractAudio",
-            "preferredcodec": "opus",
-        }],
-        "noplaylist": True,
-        #"outtmpl": title+"/%(title)s",
-    }
+    ydl_opts = {}
+    if (audio_only):
+        ydl_opts = {
+            "format": "m4a/bestaudio/best",
+            "postprocessors": [{
+                "key": "FFmpegExtractAudio",
+                "preferredcodec": "opus",
+            }],
+            "noplaylist": True,
+        }
+    else:
+        ydl_opts = {
+            "noplaylist": True,
+        } 
 
     dir_sep = "/"
     if os.name == "nt":

@@ -1,4 +1,4 @@
 .venv
 notes
-Dockerfile
 .ssh
+__pycache__
