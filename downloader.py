@@ -31,13 +31,16 @@ def download_song(url: str):
             "preferredcodec": "opus",
         }],
         "noplaylist": True,
+        #"remote-components": "ejs:github", # Doesn't work TT
         "outtmpl": title
     }
     with YoutubeDL(ydl_opts) as ydl:
         error_code = ydl.download(url)
     
 def download_album(url: str):
-    driver = webdriver.Chrome()
+    options = webdriver.ChromeOptions()
+    options.add_argument("--headless=new")
+    driver = webdriver.Chrome(options=options)
     driver.get(url)
 
     driver.implicitly_wait(5)
@@ -48,8 +51,7 @@ def download_album(url: str):
 
     video_titles = []
     for t in video_title_elements:
-        video_titles.append(t.get_attribute("title").replace("/", "_slash_"))
-        video_titles.append(t.get_attribute("title").replace("\\", "_back_slash_"))
+        video_titles.append(t.get_attribute("title").replace("/", "_slash_").replace("\\", "_back_slash_"))
 
     links = []
     for l in link_elements:

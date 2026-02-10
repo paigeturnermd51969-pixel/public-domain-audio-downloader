@@ -46,6 +46,7 @@ pip install -r requirments.txt --upgrade
 
 ## TODO
 This script is far from perfect. Here is a list of some upcoming improvments.
+- Deal with this https://github.com/yt-dlp/yt-dlp/wiki/EJS
 - Strip colons from filenames
 - Handle correct song ordering in playlists > 99 songs
 - Test if it actually works on Windows.
