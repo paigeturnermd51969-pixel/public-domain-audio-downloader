@@ -146,6 +146,10 @@ def download_album(url: str, audio_only: bool=True, proxy: str=""):
                 "preferredcodec": "opus",
             }],
             "noplaylist": True,
+            "sleep_interval_requests": 0.75,
+            "sleep_interval": 10,
+            "max_sleep_interval": 20,
+            "ratelimmit": 50000,
         }
     else:
         ydl_opts = {
